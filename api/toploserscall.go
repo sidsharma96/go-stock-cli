@@ -59,7 +59,7 @@ func GetTopLosers() {
 	}
 
 	if len(responseData.TopGainers) == 0 {
-		log.Fatalln("No top gainers found")
+		log.Fatalln("No top losers found")
 	}
 
 	fmt.Println("Top 5 losers in the market are - ")

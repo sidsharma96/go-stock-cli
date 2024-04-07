@@ -41,15 +41,15 @@ type TimeSeriesData struct {
 }
 
 type MatchData struct {
-	Symbol string		`json:"symbol"`
-	Name string			`json:"name"`
-	Type string			`json:"type"`
-	Region string		`json:"region"`
-	MarketOpen string	`json:"marketOpen"`
-	MarketClose string  `json:"marketClose"`
-	Timezone string	   	`json:"timezone"`
-	Currency string		`json:"currency"`
-	MatchScore string	`json:"matchScore"`
+	Symbol string		`json:"1. symbol"`
+	Name string			`json:"2. name"`
+	Type string			`json:"3. type"`
+	Region string		`json:"4. region"`
+	MarketOpen string	`json:"5. marketOpen"`
+	MarketClose string  `json:"6. marketClose"`
+	Timezone string	   	`json:"7. timezone"`
+	Currency string		`json:"8. currency"`
+	MatchScore string	`json:"9. matchScore"`
 }
 
 type TopData struct {

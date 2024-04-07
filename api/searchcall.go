@@ -73,11 +73,12 @@ func GetSearchResult(company string) {
 	fmt.Printf("Found ticker symbol %s for company %s with match score of %s \n",
 		symbol, company, matchScore,
 	)
+	time.Sleep(time.Millisecond * 500)
 
 	timeSeriesQueryParams := reqTimeSeries.URL.Query()
 	timeSeriesQueryParams.Add(util.Function, util.TimeSeriesDaily)
-	queryParams.Add(util.Symbol, symbol)
-	queryParams.Add(util.Apikey, apiKey)
+	timeSeriesQueryParams.Add(util.Symbol, symbol)
+	timeSeriesQueryParams.Add(util.Apikey, apiKey)
 	reqTimeSeries.URL.RawQuery = timeSeriesQueryParams.Encode()
 
 	respTimeSeries, err := avclient.Do(reqTimeSeries)
@@ -101,16 +102,16 @@ func GetSearchResult(company string) {
 	}
 
 	lastRefreshedDate := timeSeriesResponseData.Metadata.LastRefreshed
-	openPrice := strconv.FormatFloat(timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].Open, 'E', -1, 64)
-	closePrice := strconv.FormatFloat(timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].Close, 'E', -1, 64)
-	high := strconv.FormatFloat(timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].High, 'E', -1, 64)
-	low := strconv.FormatFloat(timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].Low, 'E', -1, 64)
-	volume := strconv.FormatUint(timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].Volume, 10)
+	openPrice := timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].Open
+	closePrice := timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].Close
+	high := timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].High
+	low := timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].Low
+	volume := timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].Volume
 
 
 	fmt.Println("Retrieving company stock information...")
 	time.Sleep(time.Millisecond * 500)
-	fmt.Printf("Date for retrieval: %s \n Opening price: %s \n Closing price: %s \n High: %s \n Low: %s Volume: %s \n",
+	fmt.Printf("Date for retrieval: %s \n Opening price: %v \n Closing price: %v \n High: %v \n Low: %v \n Volume: %v \n",
 		lastRefreshedDate, openPrice, closePrice, high, low, volume,
 	)
 }
