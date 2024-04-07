@@ -6,7 +6,6 @@ require (
 	github.com/fatih/color v1.16.0
 	github.com/ivanpirog/coloredcobra v1.0.1
 	github.com/joho/godotenv v1.5.1
-	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/spf13/cobra v1.8.0
 )
 
