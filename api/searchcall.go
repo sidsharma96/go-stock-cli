@@ -15,6 +15,12 @@ import (
 
 
 func GetSearchResult(company string) {
+	posRes, ok := searchCache.read(company)
+	if ok {
+		displayResult(posRes)
+		os.Exit(0)
+	}
+
 	avclient := alphaVantageClient
 	godotenv.Load(".env")
 
@@ -101,6 +107,12 @@ func GetSearchResult(company string) {
 		log.Fatalln("Failed to parse response: ", err)
 	}
 
+	searchCache.update(company, timeSeriesResponseData)
+	displayResult(timeSeriesResponseData)
+}
+
+
+func displayResult(timeSeriesResponseData TimeSeriesResponse) {
 	lastRefreshedDate := timeSeriesResponseData.Metadata.LastRefreshed
 	openPrice := timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].Open
 	closePrice := timeSeriesResponseData.TimeSeriesDaily[lastRefreshedDate].Close
